@@ -5,10 +5,11 @@ import re
 from nltk.parse import stanford
 from nltk.tag.stanford import StanfordNERTagger
 
-
-# find if the sentence you enter is a question or not
-# if it is return the sub tree of SQ
 def findQ(t):
+    """
+    Find if the sentence you enter is a question or not
+    If it is return the sub tree of SQ
+    """
     if t.height() == 2:
         return False, False
     if t.label() == "SQ":
@@ -20,10 +21,11 @@ def findQ(t):
                 return True, things
         return False, False
 
-
-# find if the sentence you enter is a question or not
-# specifically a question with WH- in it
 def findS(t):
+    """
+    Find if the sentence you enter is a question or not
+    specifically a question with WH- in it
+    """
     if t.height() == 2:
         return False
     if t.label() == "WHNP":
@@ -35,9 +37,10 @@ def findS(t):
                 return True
         return False
 
-
-# find all the word with specific POS tag
 def findPOS(t, p):
+    """
+    Find all the word with specific POS tag
+    """
     temp = []
     for tokens in t.pos():
         (a, b) = tokens
@@ -46,9 +49,8 @@ def findPOS(t, p):
 
     return temp
 
-
-# classify genre of movie
 def genre(x):
+    """Classify genre of movie"""
     return {
         "drama": "D",
         "romance": "R",
@@ -66,7 +68,6 @@ def genre(x):
     }.get(x, "")
 
 
-# main question answering function
 def qa(q):
     # set up environments
     # if on Mac use line below and comment out the other line
